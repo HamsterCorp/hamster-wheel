@@ -8,18 +8,19 @@
         background-color: #f1f1f1;
       }
   </style>
-  <title>Juming Game</title>
+  <title>Wheel and Block</title>
   </head>
   <body onload="startGame()">
     <script>
 
         var myGamePiece;
-        var gravity = 0.3
+        var gravity = 0.2 //0.3
         var keys = []
 
         function startGame() {
             map = new mapObject();
             player = new playerObject()
+            myGamePiece = new component(80, 30, "red", 190, 300);
             myGameArea.start();
         }
         var myGameArea = {
@@ -49,7 +50,7 @@
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.angle);
-                ctx.setLineDash([5, 3]);
+                ctx.setLineDash([15, 20]);
                 ctx.beginPath();
                 ctx.arc(-(this.x)/360,-(this.y)/360,this.radius,0,2*Math.PI);
                 ctx.stroke();
@@ -101,8 +102,34 @@
             keys[e.keyCode] = false;
         });
 
+        function component(width, height, color, x, y, type) {
+          this.type = type;
+          this.width = width;
+          this.height = height;
+          this.speed = 2.8; //1
+          this.angle = 0;
+          this.moveAngle = 1;
+          this.x = x;
+          this.y = y;
+          this.update = function() {
+              ctx = myGameArea.context;
+              ctx.save();
+              ctx.translate(this.x, this.y);
+              ctx.rotate(this.angle);
+              ctx.fillStyle = color;
+              ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
+              ctx.restore();
+          }
+              this.newPos = function() {
+              this.angle += this.moveAngle * Math.PI / 180;
+              this.x += this.speed * Math.sin(this.angle);
+              this.y -= this.speed * Math.cos(this.angle);
+          }
+}
         function updateGameArea() {
             myGameArea.clear();
+            myGamePiece.newPos();
+            myGamePiece.update();
             //speed
             map.angle += 0.5 * Math.PI / 180;
             map.updateNonPlayers();
