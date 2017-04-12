@@ -8,18 +8,17 @@
         background-color: #f1f1f1;
       }
   </style>
-  <title>Juming Game</title>
   </head>
   <body onload="startGame()">
+
     <script>
-
         var myGamePiece;
-        var gravity = 0.3
+        var gravity = 0.2
         var keys = []
-
         function startGame() {
             map = new mapObject();
             player = new playerObject()
+            block = new blockObject(80, 30, "red", 190, 300);
             myGameArea.start();
         }
         var myGameArea = {
@@ -30,7 +29,7 @@
                 this.context = this.canvas.getContext("2d");
                 document.body.insertBefore(this.canvas, document.body.childNodes[0]);
                 this.frameNo = 0;
-                this.interval = setInterval(updateGameArea, 20);
+                this.interval = setInterval(updateGameArea, 10);
             },
             stop : function() {
                 clearInterval(this.interval);
@@ -44,12 +43,12 @@
             this.angle = 0;
             this.x = 350;
             this.y = 300;
-            this.updateNonPlayers = function() {
+            this.updateMap = function() {
                 ctx = myGameArea.context;
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.angle);
-                ctx.setLineDash([5, 3]);
+                ctx.setLineDash([15, 20]);
                 ctx.beginPath();
                 ctx.arc(-(this.x)/360,-(this.y)/360,this.radius,0,2*Math.PI);
                 ctx.stroke();
@@ -70,27 +69,53 @@
                 ctx.save();
                 // check keys
                 if (keys[38] || keys[32]) {
-                  console.log("ENTERED")
                     // up arrow or space
                     if(!this.jumping){  // if player.jumping = false
                      this.jumping = true;
-                     console.log("JUMP TRUE")
                      this.velY = -this.speed*2; //Negative so it can be lessened by the gravity, which is a positive number and a fraction
                     }
                 }
                 this.velY += gravity;
                 this.y += this.velY;
-
                 if(this.y >= 500 - this.height){
                     this.y = 500 - this.height;
                     this.jumping = false;
                 }
-
                 ctx.fillStyle = '#3582ba';
                 ctx.fillRect(this.x, this.y, this.width, this.height);
             }
+            this.crashWith = function(otherobj) {
+              var myleft = this.x;
+              var myright = this.x + (this.width) + 12;
+              var mytop = this.y;
+              var mybottom = this.y + (this.height);
+              var otherleft = otherobj.x;
+              var otherright = otherobj.x + (otherobj.width) - 50;
+              var othertop = otherobj.y;
+              var otherbottom = otherobj.y + (otherobj.height);
+              var crash = true;
+              if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+                  crash = false;
+              }
+              if (mybottom < othertop && myright > otherleft){
+                  if (this.y > 392){
+                    this.jumping = false
+                    this.y = 390
+                  }
+              }
+              if (crash){
+                  console.log('blue left: ' + myleft)
+                  console.log('blue right: ' + myright)
+                  console.log('blue top: ' + mytop)
+                  console.log('blue bottom: ' + mybottom)
+                  console.log('red left: ' + otherleft)
+                  console.log('red right: ' + otherright)
+                  console.log('red top: ' + othertop)
+                  console.log('red bottom: ' + otherbottom)
+              }
+              return crash;
+            }
         }
-
         // The type "keyup" event happens when the key is released
         document.body.addEventListener("keydown", function(e) {
             console.log("DOWN")
@@ -100,14 +125,46 @@
             console.log("UP")
             keys[e.keyCode] = false;
         });
-
+        function blockObject(width, height, color, x, y, type) {
+          this.type = type;
+          this.width = width;
+          this.height = height;
+          this.speed = 2.8;
+          this.angle = 0;
+          this.moveAngle = 1;
+          this.x = x;
+          this.y = y;
+          this.updateBlock = function() {
+              ctx = myGameArea.context;
+              ctx.save();
+              ctx.translate(this.x, this.y);
+              ctx.rotate(this.angle);
+              ctx.fillStyle = color;
+              ctx.fillRect(this.width / -2, this.height / -2, this.width, this.height);
+              ctx.restore();
+          }
+            this.newPos = function() {
+            this.angle += this.moveAngle * Math.PI / 180;
+            this.x += this.speed * Math.sin(this.angle);
+            this.y -= this.speed * Math.cos(this.angle);
+            }
+        }
         function updateGameArea() {
+          if (player.crashWith(block)){
+            myGameArea.stop()
+          }else{
             myGameArea.clear();
+            block.newPos();
+            block.updateBlock();
             //speed
             map.angle += 0.5 * Math.PI / 180;
-            map.updateNonPlayers();
+            map.updateMap();
             player.updatePlayer();
-        }
+          }
+      }
+    </script>
+    <script>
+
     </script>
   </body>
 </html>
