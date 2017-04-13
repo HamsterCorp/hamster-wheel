@@ -18,7 +18,13 @@
         function startGame() {
             map = new mapObject();
             player = new playerObject()
-            block = new blockObject(80, 30, "red", 190, 300);
+                                      //  wi  he   col   x    y    spe  rot  pla.he type
+            largeblock1 = new blockObject(80, 30, "red", 190, 300, 2.8, 0, 390, 0);
+            largeblock2 = new blockObject(80, 30, "purple", 270, 440, 2.8, 11.5, 390, 0);
+            smallblock1 = new blockObject(30, 30, "green", 430, 134, 3.2, 2, 440, 0);
+            smallblock2 = new blockObject(30, 30, "orange", 510, 208, 3.2, 2.6, 440, 0);
+            platform1   = new blockObject(10, 30, "#19aa85", 470, 230, 2.4, 2.6, 420, 1);
+            platform2   = new blockObject(10, 30, "#19aa85", 480, 300, 2.4, 3.2, 420, 1);
             myGameArea.start();
         }
         var myGameArea = {
@@ -56,8 +62,8 @@
             }
         }
         function playerObject(){
-            this.x = 350 - 12
-            this.y = 300 + 169
+            this.x = map.x - 12
+            this.y = map.y + 169
             this.width = 30
             this.height = 30
             this.speed = 3
@@ -94,24 +100,16 @@
               var othertop = otherobj.y;
               var otherbottom = otherobj.y + (otherobj.height);
               var crash = true;
-              if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+              if ((otherobj.type == 0) && ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright))) {
                   crash = false;
               }
+
+              //for grounded square blocks
               if (mybottom < othertop && myright > otherleft){
-                  if (this.y > 392){
+                  if (this.y > otherobj.plat){
                     this.jumping = false
-                    this.y = 390
+                    this.y = otherobj.plat
                   }
-              }
-              if (crash){
-                  console.log('blue left: ' + myleft)
-                  console.log('blue right: ' + myright)
-                  console.log('blue top: ' + mytop)
-                  console.log('blue bottom: ' + mybottom)
-                  console.log('red left: ' + otherleft)
-                  console.log('red right: ' + otherright)
-                  console.log('red top: ' + othertop)
-                  console.log('red bottom: ' + otherbottom)
               }
               return crash;
             }
@@ -125,15 +123,16 @@
             console.log("UP")
             keys[e.keyCode] = false;
         });
-        function blockObject(width, height, color, x, y, type) {
+        function blockObject(width, height, color, x, y, speed,rotate, plat, type) {
           this.type = type;
           this.width = width;
           this.height = height;
-          this.speed = 2.8;
-          this.angle = 0;
+          this.speed = speed;
+          this.angle = rotate;
           this.moveAngle = 1;
           this.x = x;
           this.y = y;
+          this.plat = plat;
           this.updateBlock = function() {
               ctx = myGameArea.context;
               ctx.save();
@@ -150,12 +149,28 @@
             }
         }
         function updateGameArea() {
-          if (player.crashWith(block)){
-            myGameArea.stop()
+          if (player.crashWith(largeblock1) || player.crashWith(smallblock1) || player.crashWith(smallblock2) || player.crashWith(largeblock2)) {
+              myGameArea.stop()
           }else{
             myGameArea.clear();
-            block.newPos();
-            block.updateBlock();
+            largeblock1.newPos();
+            largeblock1.updateBlock();
+
+            largeblock2.newPos();
+            largeblock2.updateBlock();
+
+            smallblock1.newPos();
+            smallblock1.updateBlock();
+
+            smallblock2.newPos();
+            smallblock2.updateBlock();
+
+            platform1.newPos();
+            platform1.updateBlock();
+
+            platform2.newPos();
+            platform2.updateBlock();
+
             //speed
             map.angle += 0.5 * Math.PI / 180;
             map.updateMap();
