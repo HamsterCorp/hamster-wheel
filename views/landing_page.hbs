@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hamster Wheel</title>
+    <style>
+      body {
+        background-color: orange;
+      }
+      .topform {
+        float: right;
+      }
+      .topmiddle {
+        background-color: #282C34;
+        text-align: center;
+        color: white;
+      }
+      .middle {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topform">
+      <form action="/submit_login" method="POST">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">LOGIN</button>
+      </form>
+    </div>
+    <br>
+
+    <div class="topmiddle">
+      <p>Hamster Wheel</p>
+      <!-- <p><img src="images/smallhamster.png"></p> -->
+      <p><img src="https://vignette2.wikia.nocookie.net/jadensadventures/images/c/ca/HAMTARO.png/revision/latest?cb=20140819173715" width="200"></p>
+    </div>
+
+    <div class="middle">
+      <p>SIGN UP NOW</p>
+      <form action="/create_login" method="POST">
+        <input type="text" name="username" placeholder="Username"> <br><br>
+        <input type="password" name="password" placeholder="Password"><br><br>
+        <button type="submit">CREATE LOGIN</button>
+      </form>
+    </div>
+  </body>
+</html>

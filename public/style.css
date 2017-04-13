@@ -1,0 +1,9 @@
+body {
+  text-align: center;
+}
+.search-form {
+}
+.search-form input,
+.search-form button {
+  font-size: 2em;
+}
