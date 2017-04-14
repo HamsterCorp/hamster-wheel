@@ -2,32 +2,31 @@
 <html>
   <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
   <style>
       canvas {
         border:1px solid #d3d3d3;
         background-color: #f1f1f1;
       }
+      text {
+        float: bottom;
+      }
   </style>
+  <title>Hamster Game</title>
   </head>
+
   <body onload="startGame()">
-    <audio id="myAudio" controls>
-      <source src="Happy.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-    <button onclick="myFunction()">Try it</button>
-
-    <p id="demo"></p>
     <script>
-
         var myGamePiece;
-        var gravity = 0.1
-        var keys = []
-
+        var gravity = 0.2;
+        var keys = [];
+        var myScore;
         function startGame() {
             map = new mapObject();
             player = new playerObject()
             block = new blockObject(80, 30, "red", 190, 300);
             myGameArea.start();
+            drawScore();
         }
         var myGameArea = {
             canvas : document.createElement("canvas"),
@@ -46,6 +45,14 @@
                 this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             }
         }
+        function drawScore(){
+          ctx = myGameArea.context;
+          ctx.font = "22px 'Quantico', sans-serif";
+          ctx.fillStyle = "black";
+          var myScore = Math.round(myGameArea.frameNo)
+          ctx.fillText("Score: " + myScore, 300, 550);
+        }
+
         function mapObject () {
             this.radius = 200;
             this.angle = 0;
@@ -85,33 +92,45 @@
                 }
                 this.velY += gravity;
                 this.y += this.velY;
-
                 if(this.y >= 500 - this.height){
                     this.y = 500 - this.height;
                     this.jumping = false;
                 }
-
                 ctx.fillStyle = '#3582ba';
                 ctx.fillRect(this.x, this.y, this.width, this.height);
             }
             this.crashWith = function(otherobj) {
               var myleft = this.x;
-              var myright = this.x + (this.width);
+              var myright = this.x + (this.width) + 12;
               var mytop = this.y;
               var mybottom = this.y + (this.height);
               var otherleft = otherobj.x;
-              var otherright = otherobj.x + (otherobj.width);
+              var otherright = otherobj.x + (otherobj.width) - 50;
               var othertop = otherobj.y;
               var otherbottom = otherobj.y + (otherobj.height);
               var crash = true;
               if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
                   crash = false;
               }
+              if (mybottom < othertop && myright > otherleft){
+                  if (this.y > 392){
+                    this.jumping = false
+                    this.y = 390
+                  }
+              }
+              if (crash){
+                  console.log('blue left: ' + myleft)
+                  console.log('blue right: ' + myright)
+                  console.log('blue top: ' + mytop)
+                  console.log('blue bottom: ' + mybottom)
+                  console.log('red left: ' + otherleft)
+                  console.log('red right: ' + otherright)
+                  console.log('red top: ' + othertop)
+                  console.log('red bottom: ' + otherbottom)
+              }
               return crash;
-
             }
         }
-
         // The type "keyup" event happens when the key is released
         document.body.addEventListener("keydown", function(e) {
             console.log("DOWN")
@@ -148,7 +167,10 @@
         function updateGameArea() {
           if (player.crashWith(block)){
             myGameArea.stop()
-          }else{
+            console.log('GAME OVER');
+            //Post score to the database
+          }
+          else {
             myGameArea.clear();
             block.newPos();
             block.updateBlock();
@@ -156,14 +178,12 @@
             map.angle += 0.5 * Math.PI / 180;
             map.updateMap();
             player.updatePlayer();
+            // change .05 to adjust rate of score increase
+            myGameArea.frameNo += .05;
+            drawScore();
           }
       }
     </script>
-    <script>
-      function myFunction() {
-          var x = document.getElementById("myAudio").duration;
-          document.getElementById("demo").innerHTML = x;
-      }
-    </script>
+
   </body>
 </html>
