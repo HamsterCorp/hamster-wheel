@@ -6,7 +6,13 @@ const pgp = require('pg-promise')({
   promiseLib: Promise
 });
 const bodyParser = require('body-parser');
-const app = express();
+
+// const app = express();
+const app = require('express')()
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 
@@ -154,8 +160,24 @@ app.use(function authentication(req, resp, next) {
   }
 });
 
+// io.on('connection', function(socket) {
+//     console.log('a user connected');
 
+    // socket.on('draw', function(data) {
+    //     console.log(data);
+    //
+    //
+    //     socket.broadcast.emit('draw', data);
+    // });
+    //
+    //
+    // 
+    //
+    // socket.on('disconnect', function() {
+    //     console.log('a user disconnected');
+    // })
+// })
 
-app.listen(3001, function() {
-  console.log('Listening on port 3001.');
+app.listen(3000, function() {
+  console.log('Listening on port 3000.');
 });
