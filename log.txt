@@ -983,3 +983,7 @@ GET /login
 GET /login
 GET /login
 GET /login
+GET /
+POST /create_login
+GET /game
+POST /endpoint
