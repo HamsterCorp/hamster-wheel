@@ -1490,3 +1490,5 @@ GET /game
 POST /endpoint
 GET /game
 POST /endpoint
+GET /leaderboard
+GET /leaderboard

@@ -55,7 +55,7 @@ app.get('/tryagain', function(req, resp) {
 
 //This is the try again page
 app.get('/leaderboard', function(req, resp, next) {
-  db.any('select username, score from hamster order by score desc')
+  db.any('select username, score from hamster order by score desc limit 10')
   .then(function(hamsters) {
     resp.render('leaderboard.hbs', {
       hamsters:hamsters
