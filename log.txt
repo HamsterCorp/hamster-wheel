@@ -1704,3 +1704,16 @@ POST /submit_login
 GET /game
 POST /endpoint
 GET /leaderboard
+GET /
+POST /submit_login
+GET /game
+GET /
+POST /submit_login
+GET /game
+POST /endpoint
+GET /leaderboard
+GET /game
+POST /endpoint
+GET /game
+POST /endpoint
+GET /leaderboard
