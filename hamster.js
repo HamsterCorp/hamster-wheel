@@ -81,7 +81,7 @@ app.get('/leaderboard', function(req, resp, next) {
 // });
 
 //Ajax submit score
-app.post('/endpoint', function(req, res){
+app.post('/endpoint', function(req, resp){
     var username = req.session.loggedInUser;
     console.log('What is username', username);
 
@@ -144,23 +144,6 @@ app.use(function authentication(req, resp, next) {
   }
 });
 
-// io.on('connection', function(socket) {
-//     console.log('a user connected');
-
-    // socket.on('draw', function(data) {
-    //     console.log(data);
-    //
-    //
-    //     socket.broadcast.emit('draw', data);
-    // });
-    //
-    //
-    //
-    //
-    // socket.on('disconnect', function() {
-    //     console.log('a user disconnected');
-    // })
-// })
 
 app.listen(3000, function() {
   console.log('Listening on port 3000.');

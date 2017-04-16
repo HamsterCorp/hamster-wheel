@@ -1,8 +1,10 @@
 body {
   text-align: center;
-  background-color: orange;
+  
+  font-family: 'Poppins', sans-serif;
 }
 .search-form {
+
 }
 .search-form input,
 .search-form button {

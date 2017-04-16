@@ -2,19 +2,76 @@
 <html>
   <head>
     <title>Hamster Wheel</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+
     <style>
       body {
-        background-color: orange;
+        background-color: #AFFBC6;
         text-align: left;
+        min-height: 450px;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Press Start 2P', cursive;
+        color: black;
+        font-size: 20px;
       }
+
+
+      ol {
+          counter-reset: item;
+          list-style-type: none;
+        }
+      li { display: block; }
+      li:before {
+          content: counter(item) "  ";
+          counter-increment: item
+      }
+
+      .leaderboard {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 700px;
+        height: 525px;
+        border-radius: 10px;
+        background: black;
+        box-shadow: 0 7px 30px rgba(62, 9, 11, .3);
+        padding: 20px 35px 35px 50px;
+        color: white;
+      }
+
+      table {
+
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 15px;
+      }
+
+
+
     </style>
   </head>
   <body>
-    <h1>Leaderboard</h1>
-    <ol>
-      {{#each hamsters}}
-        <li>{{username}}{{score}}</li>
-      {{/each}}
-    </ol>
+    <div class="leaderboard">
+      <h1 style="text-align: center">Leaderboard</h1>
+      <ol>
+      <table style="width: 100%" border-collapse= "separate" border-spacing="10px">
+        <tr>
+          <th> Rank </th>
+          <th> Username </th>
+          <th> Score </th>
+        </tr>
+          {{#each hamsters}}
+        <tr>
+          <td><li></li></td>
+          <td>{{username}}</td>
+          <td>{{score}}</td>
+        </tr>
+          {{/each}}
+
+        </table>
+      </ol>
+      </div>
   </body>
 </html>

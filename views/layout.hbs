@@ -5,7 +5,16 @@
     <title>{{title}}</title>
     <link href="/style.css" rel="stylesheet">
     <script src="/jquery.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
   </head>
+  <style>
+  p {
+    text-align: center;
+    padding-top: 40px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  </style>
   <body>
     {{#if session.loggedInUser}}
       <p>Welcome, {{session.loggedInUser}}!</p>
