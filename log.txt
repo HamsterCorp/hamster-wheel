@@ -1479,3 +1479,14 @@ GET /leaderboard
 GET /leaderboard
 GET /leaderboard
 GET /leaderboard
+GET /leaderboard
+GET /
+POST /create_login
+GET /game
+POST /endpoint
+GET /game
+GET /game
+GET /game
+POST /endpoint
+GET /game
+POST /endpoint
