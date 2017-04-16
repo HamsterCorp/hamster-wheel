@@ -6,21 +6,11 @@ const pgp = require('pg-promise')({
   promiseLib: Promise
 });
 const bodyParser = require('body-parser');
-
 // const app = express();
 const app = require('express')()
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-
-
 const fs = require('fs');
 const bcrypt = require('bcrypt');
-
-
-
-
-
-
+// var gameOver = false;
 
 app.use(express.static('public'));
 
@@ -43,12 +33,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const db = pgp(dbConfig);
 
-
 app.use(function(req, resp, next) {
   resp.locals.session = req.session;
   next();
 });
-
 
 //This is where the game page would go
 app.get('/game', function(req, resp) {
@@ -76,7 +64,6 @@ app.get('/leaderboard', function(req, resp, next) {
   .catch(next);
 });
 
-
 // Send score to the database
 // app.post('/submit_score', function(req, resp) {
 //   var score = +req.body.score;
@@ -93,23 +80,22 @@ app.get('/leaderboard', function(req, resp, next) {
 //   })
 // });
 
-
 //Ajax submit score
 app.post('/endpoint', function(req, res){
     var username = req.session.loggedInUser;
     console.log('What is username', username);
+
+
     db.none(`update hamster set score = $1 where username = $2`, [req.body.myScore, username])
     .then(function(){
       res.send(req.body);
+      //
+      resp.render('leaderboard.hbs');
     })
     .catch(function(err){
       console.log(err.message);
     });
-
 });
-
-
-
 
 
 // app.post('/create_login', function(req, resp, next) {
@@ -128,13 +114,11 @@ app.post('/create_login', function(req, resp, next) {
       resp.redirect('/tryagain');
       console.log(err.message);  //user name taken
     });
-
 });
 
 app.post('/submit_login', function(req, resp) {
   var username = req.body.username;
   var password = req.body.password;
-  console.log("dfasdfas",username, password);
   db.any(`
     select * from hamster where
     username = $1 and password = $2
@@ -171,7 +155,7 @@ app.use(function authentication(req, resp, next) {
     // });
     //
     //
-    // 
+    //
     //
     // socket.on('disconnect', function() {
     //     console.log('a user disconnected');

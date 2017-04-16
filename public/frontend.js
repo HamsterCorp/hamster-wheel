@@ -153,6 +153,8 @@ function updateGameArea() {
     console.log('GAME OVER');
     gameOver = true;
 
+    $('.gameOver').show();
+
 
   }
   else {

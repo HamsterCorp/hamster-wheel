@@ -9,7 +9,15 @@
   <body>
     {{#if session.loggedInUser}}
       <p>Welcome, {{session.loggedInUser}}!</p>
+        <form action ='/leaderboard'>
+          <button class = "gameOver" style="display:none;">Display High Scores</button>
+        </form>
+        <form action ='/game'>
+          <button class = "gameOver" style ="display:none;">Play Again</button>
+        </form>
+
     {{/if}}
+
     {{{ body }}}
   </body>
 </html>
