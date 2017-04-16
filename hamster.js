@@ -64,6 +64,8 @@ app.get('/leaderboard', function(req, resp, next) {
   .catch(next);
 });
 
+
+
 // Send score to the database
 // app.post('/submit_score', function(req, resp) {
 //   var score = +req.body.score;
@@ -143,7 +145,10 @@ app.use(function authentication(req, resp, next) {
     resp.redirect('/login');
   }
 });
-
+app.get('/logout', function(req, resp) {
+  req.session.loggedInUser = null;
+  resp.redirect('/');
+});
 
 app.listen(3000, function() {
   console.log('Listening on port 3000.');
