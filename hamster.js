@@ -145,6 +145,7 @@ app.use(function authentication(req, resp, next) {
     resp.redirect('/login');
   }
 });
+
 app.get('/logout', function(req, resp) {
   req.session.loggedInUser = null;
   resp.redirect('/');
