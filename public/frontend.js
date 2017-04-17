@@ -94,6 +94,7 @@ function mapObject () {
         ctx.restore();
     }
 }
+
 function playerObject(){
     this.x = map.x - 12
     this.y = map.y + 169
@@ -104,7 +105,7 @@ function playerObject(){
     this.velY = 0
     this.jumping = false
     this.image = new Image();
-    this.image.src = "fire.png"
+    this.image.src = "hamster.png"
 
     this.updatePlayer = function(){
         ctx = myGameArea.context;
@@ -153,6 +154,7 @@ function playerObject(){
       return crash;
     }
 }
+
 // The type "keyup" event happens when the key is released
 document.body.addEventListener("keydown", function(e) {
     console.log("DOWN")
