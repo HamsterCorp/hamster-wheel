@@ -47,7 +47,7 @@ var myGameArea = {
         difficulty = Math.round(myGameArea.frameNo)
 
 
-        this.interval = setInterval(updateGameArea, 10);
+        this.interval = setInterval(updateGameArea, 5);
 
 
 
