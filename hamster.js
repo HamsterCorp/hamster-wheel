@@ -148,6 +148,7 @@ app.use(function authentication(req, resp, next) {
 
 app.get('/logout', function(req, resp) {
   req.session.loggedInUser = null;
+  resp.render('logout.hbs');
   resp.redirect('/');
 });
 
