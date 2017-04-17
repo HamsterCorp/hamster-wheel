@@ -57,6 +57,7 @@ app.get('/tryagain', function(req, resp) {
 app.get('/leaderboard', function(req, resp, next) {
   db.any('select username, score from hamster order by score desc limit 10;')
   .then(function(hamsters) {
+    console.log(hamsters)
     resp.render('leaderboard.hbs', {
       hamsters:hamsters
     });

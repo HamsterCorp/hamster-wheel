@@ -26,7 +26,7 @@ function startGame() {
 
     Rsmallblock = new blockObject(30, 30, "block2.png", 493, 418, 3.2, 10.1, 435, -1);    //GS5R  HERE
     Rlargeblock = new blockObject(80, 30, "longblock1.png", 258 , 431, 2.8, 11.6, 390, -1);   //GS6L  HERE
-    Rfloatblock = new blockObject(30, 30, "block4.png", 258 , 431, 2.3, 11.6, 390, -1);   //GS6L  HERE
+    Rfloatblock = new blockObject(30, 30, "block1.png", 258 , 431, 2.3, 11.6, 390, -1);   //GS6L  HERE
 
 
     blockGroup.push(smallblock1, smallblock2, largeblock1, largeblock2, floatblock1, Rsmallblock, Rlargeblock, Rfloatblock)
@@ -94,7 +94,6 @@ function mapObject () {
         ctx.restore();
     }
 }
-
 function playerObject(){
     this.x = map.x - 12
     this.y = map.y + 169
@@ -115,8 +114,8 @@ function playerObject(){
         if (keys[38] || keys[32]) {
             // up arrow or space
             if(!this.jumping){  // if player.jumping = false
-             this.jumping = true;
-             this.velY = -this.speed*2; //Negative so it can be lessened by the gravity, which is a positive number and a fraction
+              this.jumping = true;
+              this.velY = -this.speed*2; //Negative so it can be lessened by the gravity, which is a positive number and a fraction
             }
         }
         this.velY += gravity;
@@ -154,7 +153,6 @@ function playerObject(){
       return crash;
     }
 }
-
 // The type "keyup" event happens when the key is released
 document.body.addEventListener("keydown", function(e) {
     console.log("DOWN")
@@ -166,7 +164,7 @@ document.body.addEventListener("keyup", function(e) {
 });
   function blockObject(width, height, image, x, y, speed,rotate, plat, reverse)  {
       this.RoriginX = [440,455,425]
-      this.RoriginY = [170,153,200]
+      this.RoriginY = [180,153,190]
       this.RoriginR = 11.6
 
       this.originX = [258,244,275]
@@ -215,7 +213,8 @@ function updateGameArea() {
     myGameArea.stop()
     console.log('GAME OVER');
     gameOver = true;
-
+    document.getElementById('die').play();
+    document.getElementById('song').pause();
     $('.gameOver').show();
 
 
