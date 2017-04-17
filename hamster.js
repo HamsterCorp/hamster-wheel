@@ -90,7 +90,7 @@ app.post('/endpoint', function(req, resp){
 
     db.none(`update hamster set score = $1 where username = $2`, [req.body.myScore, username])
     .then(function(){
-      res.send(req.body);
+      resp.send(req.body);
       //
       resp.render('leaderboard.hbs');
     })

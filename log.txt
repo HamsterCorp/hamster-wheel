@@ -1935,3 +1935,11 @@ POST /submit_login
 GET /game
 POST /endpoint
 GET /leaderboard
+GET /leaderboard
+GET /
+POST /submit_login
+GET /game
+POST /endpoint
+GET /leaderboard
+GET /logout
+GET /
