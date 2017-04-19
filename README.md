@@ -1,7 +1,7 @@
 <h1>Hamster Wheel</h1>
 This is a game that lets you jump over obstacles.
 
-<a href="wheelgame.debramaelee.com">Live Demo</a>
+<a href="https://wheelgame.debramaelee.com">Live Demo</a>
 
 <h2>Languages and Technologies Used</h2>
 <ul>
