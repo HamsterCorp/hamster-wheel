@@ -15,3 +15,13 @@ This is a game that lets you jump over obstacles.
 <li>CSS</li>
 </ul>
 
+<h2>Dependencies and Plugins</h2>
+<ul>
+<li>express</li>
+<li>express-session</li>
+<li>bluebird</li>
+<li>pg-promise</li>
+<li>body-parser</li>
+<li>bcrypt</li>
+</ul>
+
