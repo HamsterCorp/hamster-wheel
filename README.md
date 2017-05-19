@@ -3,7 +3,13 @@ This game lets the user play as a jumping hamster to avoid randomly generated ob
 
 <a href="https://wheelgame.debramaelee.com">Live Demo</a>
 
-<h2>Team Members<h2>
+<h2>Team Members</h2>
+ * [Debra Mae Lee](https://github.com/debramaelee/)
+ * [Carl S Severe](https://github.com/MuteBard/)
+ * [Justin Uzoije](https://github.com/justinuzoije/)
+ * [Ning-Fei Yuan](https://github.com/ningwho/)
+
+
 
 <h2>Team Strategy</h2>
 <p>
